@@ -51,14 +51,6 @@
     </dependency>
 
 
-    <!-- Allure (reporting = რეპორტინგი) -->
-    <dependency>
-      <groupId>io.qameta.allure</groupId>
-      <artifactId>allure-testng</artifactId>
-      <version>2.29.0</version>
-      <scope>test</scope>
-    </dependency>
-
     <!-- ExtentReports რეპორტინგისთვის -->
     <dependency>
       <groupId>com.aventstack</groupId>
