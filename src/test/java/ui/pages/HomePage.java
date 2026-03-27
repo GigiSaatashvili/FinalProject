@@ -6,11 +6,10 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import ui.utils.ExtentLogger;
 import ui.utils.WaitUtils;
 
 public class HomePage {
-
-
 
     WebDriver driver;
     WaitUtils waitUtils;
@@ -37,6 +36,7 @@ public class HomePage {
     @FindBy(xpath = "//a[contains(@href,'/category/macbook-neo')]")
     WebElement macBookNeoCard;
 
+    // ვამოწმებთ რომ ლოგო გვერდზე ჩანს
     public boolean isLogoDisplayed() {
         return logo.isDisplayed();
     }
@@ -49,22 +49,22 @@ public class HomePage {
             );
             acceptButton.click();
             waitUtils.waitUntilElementIsInvisible(cookiesPopupContainer);
-
+            ExtentLogger.info("Cookie popup დაიხურა");
         } catch (Exception e) {
-
+            ExtentLogger.info("Cookie popup არ გამოჩნდა");
         }
     }
 
     // საძიებო ველში შეგვყავს ტექსტი და ვიწყებთ ძებნას
     public void searchProduct(String productName) {
-
-
         waitUtils.waitUntilElementIsInvisible(By.cssSelector("div.ui-backdrop"));
         waitUtils.waitUntilElementIsClickable(searchInput);
 
         searchInput.clear();
         searchInput.sendKeys(productName);
         searchInput.sendKeys(Keys.ENTER);
+
+        ExtentLogger.info("ძებნის ველში ჩაიწერა: " + productName);
     }
 
     // ვაბრუნებთ საძიებო ველში ჩაწერილ მნიშვნელობას
@@ -86,6 +86,6 @@ public class HomePage {
     public void openMacBookNeoCategory() {
         String macBookNeoUrl = macBookNeoCard.getAttribute("href");
         driver.get(macBookNeoUrl);
+        ExtentLogger.info("გაიხსნა MacBook Neo კატეგორიის გვერდი");
     }
-
 }
