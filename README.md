@@ -37,7 +37,7 @@
 ```bash
 mvn test
 
-
+``` 
 Extent report გენერირდება მისამართზე:
 
 `target/ExtentReport.html`
