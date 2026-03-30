@@ -13,8 +13,8 @@ public class HomePageTest extends BaseTest {
         HomePage homePage = new HomePage(driver);
 
         //ვამოწმებთ რომ მთავარ გვერდზე ლოგო ჩანს
-        Assert.assertTrue(homePage.isLogoDisplayed(),
-                "მთავარ გვერდზე ispace  უნდა იყოს ლოგო ");
+        Assert.assertTrue(false,
+                "ტესტი შეგნებულად ჩავაგდე სქრინშოტის შესამოწმებლად");
     }
     @Test
     public void checkSearchInput() {

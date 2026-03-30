@@ -24,10 +24,22 @@ public class TestListener implements ITestListener {
         test.get().pass("ტესტი წარმატებით შესრულდა");
     }
 
-    // ჩავარდნილი ტესტი report-ში აღინიშნება როგორც fail
+    // ჩავარდნილი ტესტის დროს ვინახავთ შეცდომას და ვამაგრებთ screenshot-ს
     @Override
     public void onTestFailure(ITestResult result) {
         test.get().fail(result.getThrowable());
+
+        String screenshotPath = ScreenshotUtil.takeScreenshot(result.getMethod().getMethodName());
+
+        if (screenshotPath != null) {
+            try {
+                test.get().addScreenCaptureFromPath(screenshotPath, "Failure Screenshot");
+            } catch (Exception e) {
+                test.get().fail("სქრინშოტის დამატება ვერ მოხერხდა");
+            }
+        } else {
+            test.get().fail("სქრინშოტის გადაღება ვერ მოხერხდა");
+        }
     }
 
     // გამოტოვებული ტესტი report-ში აღინიშნება როგორც skipped
@@ -42,7 +54,7 @@ public class TestListener implements ITestListener {
         extent.flush();
     }
 
-    // მიმდინარე ტესტის ExtentTest ობიექტს ვაბრუნებთ, რომ სხვა კლასებიდანაც ჩავწეროთ ნაბიჯები
+    // მიმდინარე ტესტის ExtentTest ობიექტს ვაბრუნებთ
     public static ExtentTest getTest() {
         return test.get();
     }
