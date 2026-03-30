@@ -13,7 +13,7 @@ import java.util.Date;
 
 public class ScreenshotUtil {
 
-    // ჩავარდნის დროს ვიღებთ screenshot-ს და ვინახავთ report-ისთვის
+    // ჩავარდნის დროს ვიღებთ screenshot-ს და ვაბრუნებთ მის absolute path-ს
     public static String takeScreenshot(String testName) {
         WebDriver driver = BaseTest.getDriver();
 
@@ -27,14 +27,13 @@ public class ScreenshotUtil {
         }
 
         String timestamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String screenshotPath = "target/screenshots/" + testName + "_" + timestamp + ".png";
+        File destinationFile = new File(screenshotsDir, testName + "_" + timestamp + ".png");
 
         File sourceFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-        File destinationFile = new File(screenshotPath);
 
         try {
             FileUtils.copyFile(sourceFile, destinationFile);
-            return screenshotPath;
+            return destinationFile.getAbsolutePath();
         } catch (IOException e) {
             e.printStackTrace();
             return null;
